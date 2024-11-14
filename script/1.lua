@@ -244,19 +244,6 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 		return table.concat(path, ".")
 	end
 	
-	local function fix(instance)
-		local path = {}
-		local current = instance
-		while current and current ~= game do
-			table.insert(path, 1, current.Name)
-			current = current.Parent
-		end
-	
-		-- Find and remove "Ugc" if present
-		local index = table.find(path, "Ugc")
-		return not index
-	end
-	
 	local function icon(clone:ImageLabel,v:Instance)
 		if v:IsA("Player") then
 			clone.Image = game.Players:GetUserThumbnailAsync(v.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size60x60)
@@ -331,7 +318,7 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 			end
 		end
 		task.spawn(function()
-			if Parent ~= game and fix(Parent) then
+			if Parent ~= game and Parent ~= game.Ugc then
 				local clone = list:Clone()
 				clone.Parent = go
 				clone.TextLabel.Text = "Back"
