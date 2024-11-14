@@ -243,6 +243,16 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 	
 		return table.concat(path, ".")
 	end
+
+	local function getFullPath_2(instance)
+		local path = {}
+		local current = instance
+		while current and current ~= game do
+			table.insert(path, 1, current.Name)
+			current = current.Parent
+		end
+		return table.concat(path, ".")
+	end
 	
 	local function icon(clone:ImageLabel,v:Instance)
 		if v:IsA("Player") then
@@ -318,7 +328,7 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 			end
 		end
 		task.spawn(function()
-			if Parent ~= game and "game."..getFullPath(Parent) ~= "game.Ugc" then
+			if Parent ~= game and "game."..getFullPath_2(Parent) ~= "game.Ugc" then
 				local clone = list:Clone()
 				clone.Parent = go
 				clone.TextLabel.Text = "Back"
