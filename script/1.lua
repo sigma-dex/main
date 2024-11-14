@@ -61,6 +61,7 @@ TextLabel.ClearTextOnFocus = false
 TextLabel.Font = Enum.Font.SourceSans
 TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextLabel.TextSize = 14.000
+TextLabel.TextEditable = false
 TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 main.Name = "main"
@@ -158,6 +159,7 @@ Game.Text = "game"
 Game.TextColor3 = Color3.fromRGB(255, 255, 255)
 Game.TextScaled = true
 Game.TextSize = 14.000
+Game.TextEditable = false
 Game.TextWrapped = true
 
 TextButton.Name = "</>"
