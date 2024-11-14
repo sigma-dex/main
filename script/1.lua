@@ -318,7 +318,7 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 			end
 		end
 		task.spawn(function()
-			if Parent ~= game and Parent ~= game.Ugc then
+			if Parent ~= game and "game."..getFullPath(Parent) ~= "game.Ugc" then
 				local clone = list:Clone()
 				clone.Parent = go
 				clone.TextLabel.Text = "Back"
