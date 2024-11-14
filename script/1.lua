@@ -316,7 +316,7 @@ local function YIOVH_fake_script() -- main.ls(NONAME)_1
 	end
 	
 	local function list_dex()
-		if Parent == game then
+		if "game."..getFullPath(Parent) == "game." then
 			script.Parent.Game.Text = "game"
 		else
 			script.Parent.Game.Text = "game."..getFullPath(Parent)
