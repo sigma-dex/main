@@ -43,6 +43,7 @@ ImageLabel.BorderSizePixel = 0
 ImageLabel.Position = UDim2.new(0.0765637383, 0, 0.274812549, 0)
 ImageLabel.Size = UDim2.new(0.0428603925, 0, 1.4593358, 0)
 ImageLabel.ZIndex = 10000
+ImageLabel.ResampleMode = Enum.ResamplerMode.Pixelated
 ImageLabel.ImageTransparency = 1.000
 
 UIAspectRatioConstraint.Parent = ImageLabel
