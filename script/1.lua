@@ -18,7 +18,7 @@ local TextButton = Instance.new("TextButton")
 --Properties:
 
 SigmaDex.Name = "SigmaDex"
-SigmaDex.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+SigmaDex.Parent = game.CoreGui
 SigmaDex.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 SigmaDex.DisplayOrder = 2147483647
 SigmaDex.ResetOnSpawn = false
