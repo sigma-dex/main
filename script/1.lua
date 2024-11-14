@@ -18,7 +18,7 @@ local TextButton = Instance.new("TextButton")
 --Properties:
 
 SigmaDex.Name = "SigmaDex"
-SigmaDex.Parent = game.CoreGui
+SigmaDex.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 SigmaDex.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 SigmaDex.DisplayOrder = 2147483647
 SigmaDex.ResetOnSpawn = false
@@ -176,7 +176,7 @@ TextButton.TextWrapped = true
 
 -- Scripts:
 
-local function XTFVUK_fake_script() -- SigmaDex.LocalScript 
+local function VTUVPQH_fake_script() -- SigmaDex.LocalScript 
 	local script = Instance.new('LocalScript', SigmaDex)
 
 	task.spawn(function() local s = Instance.new("SelectionBox",game.Workspace.Camera) s.Name = "Sigma_Box" s.Adornee = nil s.Color3 = Color3.new(0, 1, 1) s.LineThickness = 0.05 end)
@@ -217,8 +217,8 @@ local function XTFVUK_fake_script() -- SigmaDex.LocalScript
 		end
 	end)
 end
-coroutine.wrap(XTFVUK_fake_script)()
-local function QPKQVLL_fake_script() -- main.ls(NONAME)_1 
+coroutine.wrap(VTUVPQH_fake_script)()
+local function YIOVH_fake_script() -- main.ls(NONAME)_1 
 	local script = Instance.new('LocalScript', main)
 
 	local list = script.Parent.Parent:WaitForChild("Frame")
@@ -234,7 +234,27 @@ local function QPKQVLL_fake_script() -- main.ls(NONAME)_1
 			table.insert(path, 1, current.Name)
 			current = current.Parent
 		end
+	
+		-- Find and remove "Ugc" if present
+		local index = table.find(path, "Ugc")
+		if index then
+			table.remove(path, index)
+		end
+	
 		return table.concat(path, ".")
+	end
+	
+	local function fix(instance)
+		local path = {}
+		local current = instance
+		while current and current ~= game do
+			table.insert(path, 1, current.Name)
+			current = current.Parent
+		end
+	
+		-- Find and remove "Ugc" if present
+		local index = table.find(path, "Ugc")
+		return not index
 	end
 	
 	local function icon(clone:ImageLabel,v:Instance)
@@ -277,6 +297,21 @@ local function QPKQVLL_fake_script() -- main.ls(NONAME)_1
 		elseif v:IsA("StarterGear") then
 			clone.Image = "rbxassetid://87475012243571"
 			clone.ImageTransparency = 0
+		elseif v:IsA("RemoteEvent") then
+			clone.Image = "rbxassetid://137974280457061"
+			clone.ImageTransparency = 0
+		elseif v:IsA("RemoteFunction") then
+			clone.Image = "rbxassetid://129785250918957"
+			clone.ImageTransparency = 0
+		elseif v:IsA("BindableEvent") then
+			clone.Image = "rbxassetid://129603129214255"
+			clone.ImageTransparency = 0
+		elseif v:IsA("BindableFunction") then
+			clone.Image = "rbxassetid://71633594448864"
+			clone.ImageTransparency = 0
+		elseif v:IsA("Folder") then
+			clone.Image = "rbxassetid://115171552038223"
+			clone.ImageTransparency = 0
 		else
 			clone.Image = "rbxassetid://138250757906453"
 			clone.ImageTransparency = 0
@@ -295,25 +330,27 @@ local function QPKQVLL_fake_script() -- main.ls(NONAME)_1
 				v:Destroy()
 			end
 		end
-		if Parent ~= game then
-			local clone = list:Clone()
-			clone.Parent = go
-			clone.TextLabel.Text = "Back"
-			clone.ImageLabel.Image = "rbxassetid://123461685279064"
-			clone.ImageLabel.ImageTransparency = 0
-			clone.Name = "Back"
-			task.spawn(function()
-				clone.BackgroundColor3 = Color3.fromRGB(0, 194, 0)
-			end)
-			clone.MouseButton1Click:Connect(function()
-				Parent = Parent.Parent
-				box.Adornee = Parent
-				list_dex()
-			end)
-			task.spawn(function()
-				clone.Visible = true
-			end)
-		end
+		task.spawn(function()
+			if Parent ~= game and fix(Parent) then
+				local clone = list:Clone()
+				clone.Parent = go
+				clone.TextLabel.Text = "Back"
+				clone.ImageLabel.Image = "rbxassetid://123461685279064"
+				clone.ImageLabel.ImageTransparency = 0
+				clone.Name = "Back"
+				task.spawn(function()
+					clone.BackgroundColor3 = Color3.fromRGB(0, 194, 0)
+				end)
+				clone.MouseButton1Click:Connect(function()
+					Parent = Parent.Parent
+					box.Adornee = Parent
+					list_dex()
+				end)
+				task.spawn(function()
+					clone.Visible = true
+				end)
+			end
+		end)
 		for i, v in pairs(Parent:GetChildren()) do
 			if v.Name == script.Parent.Parent.Name and script.Parent.Parent:GetAttribute("dex") then return end
 			local clone = list:Clone()
@@ -349,17 +386,22 @@ local function QPKQVLL_fake_script() -- main.ls(NONAME)_1
 				go.CanvasSize += UDim2.new(0, 0, 0.07, 0)
 			end
 		end
+		local p = Parent
 		Parent.ChildAdded:Connect(function(v)
-			list_dex()
+			if Parent == p then
+				list_dex()
+			end
 		end)
 		Parent.ChildRemoved:Connect(function(v)
+			if Parent == p then
 			if #Parent:GetChildren() == 0 then
 				Parent = Parent.Parent
 				list_dex()
+			end
 			end
 		end)
 	end
 	
 	list_dex()
 end
-coroutine.wrap(QPKQVLL_fake_script)()
+coroutine.wrap(YIOVH_fake_script)()
